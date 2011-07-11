@@ -1,0 +1,103 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Ajax.InPlaceCollectionEditor.DefaultOptions.loadingCollectionText	public/javascripts/controls.js	/^  loadingCollectionText: 'Loading options...'$/;"	p
+Ajax.InPlaceEditor	public/javascripts/controls.js	/^Ajax.InPlaceEditor.prototype.initialize.dealWithDeprecatedOptions = function(options) {$/;"	c
+Ajax.InPlaceEditor.initialize	public/javascripts/controls.js	/^Ajax.InPlaceEditor.prototype.initialize.dealWithDeprecatedOptions = function(options) {$/;"	m
+Application	config/application.rb	/^  class Application < Rails::Application$/;"	c	class:SampleApp
+ApplicationController	app/controllers/application_controller.rb	/^class ApplicationController < ActionController::Base$/;"	c
+ApplicationHelper	app/helpers/application_helper.rb	/^module ApplicationHelper$/;"	m
+Autocompleter.Base	public/javascripts/controls.js	/^Autocompleter.Base.prototype.getTokenBounds.getFirstDifferencePos = function(newS, oldS) {$/;"	c
+Autocompleter.Base.getTokenBounds	public/javascripts/controls.js	/^Autocompleter.Base.prototype.getTokenBounds.getFirstDifferencePos = function(newS, oldS) {$/;"	m
+Draggable	public/javascripts/dragdrop.js	/^var Draggable = Class.create({$/;"	v
+Draggables.drags	public/javascripts/dragdrop.js	/^  drags: [],$/;"	p
+Droppables.drops	public/javascripts/dragdrop.js	/^  drops: [],$/;"	p
+Effect.Appear	public/javascripts/effects.js	/^Effect.Appear = function(element) {$/;"	f
+Effect.BlindDown	public/javascripts/effects.js	/^Effect.BlindDown = function(element) {$/;"	f
+Effect.BlindUp	public/javascripts/effects.js	/^Effect.BlindUp = function(element) {$/;"	f
+Effect.DropOut	public/javascripts/effects.js	/^Effect.DropOut = function(element) {$/;"	f
+Effect.DropOut.oldStyle.top	public/javascripts/effects.js	/^    top: element.getStyle('top'),$/;"	p
+Effect.Fade	public/javascripts/effects.js	/^Effect.Fade = function(element) {$/;"	f
+Effect.Fold	public/javascripts/effects.js	/^Effect.Fold = function(element) {$/;"	f
+Effect.Fold.oldStyle.top	public/javascripts/effects.js	/^    top: element.style.top,$/;"	p
+Effect.Grow	public/javascripts/effects.js	/^Effect.Grow = function(element) {$/;"	f
+Effect.Grow.oldStyle.top	public/javascripts/effects.js	/^    top: element.style.top,$/;"	p
+Effect.Methods.highlight	public/javascripts/effects.js	/^  highlight: function(element, options) {$/;"	m
+Effect.Methods.morph	public/javascripts/effects.js	/^  morph: function(element, style) {$/;"	m
+Effect.Methods.visualEffect	public/javascripts/effects.js	/^  visualEffect: function(element, effect, options) {$/;"	m
+Effect.MoveBy	public/javascripts/effects.js	/^Effect.MoveBy = function(element, toTop, toLeft) {$/;"	f
+Effect.Puff	public/javascripts/effects.js	/^Effect.Puff = function(element) {$/;"	f
+Effect.Puff.oldStyle.opacity	public/javascripts/effects.js	/^    opacity: element.getInlineOpacity(),$/;"	p
+Effect.Pulsate	public/javascripts/effects.js	/^Effect.Pulsate = function(element) {$/;"	f
+Effect.Queues.instances	public/javascripts/effects.js	/^  instances: $H(),$/;"	p
+Effect.ScrollTo	public/javascripts/effects.js	/^Effect.ScrollTo = function(element) {$/;"	f
+Effect.Shake	public/javascripts/effects.js	/^Effect.Shake = function(element) {$/;"	f
+Effect.Shake.oldStyle.top	public/javascripts/effects.js	/^    top: element.getStyle('top'),$/;"	p
+Effect.Shrink	public/javascripts/effects.js	/^Effect.Shrink = function(element) {$/;"	f
+Effect.Shrink.oldStyle.top	public/javascripts/effects.js	/^    top: element.style.top,$/;"	p
+Effect.SlideDown	public/javascripts/effects.js	/^Effect.SlideDown = function(element) {$/;"	f
+Effect.SlideUp	public/javascripts/effects.js	/^Effect.SlideUp = function(element) {$/;"	f
+Effect.Squish	public/javascripts/effects.js	/^Effect.Squish = function(element) {$/;"	f
+Effect.SwitchOff	public/javascripts/effects.js	/^Effect.SwitchOff = function(element) {$/;"	f
+Element.collectTextNodes	public/javascripts/effects.js	/^Element.collectTextNodes = function(element) {$/;"	f
+Element.collectTextNodesIgnoreClass	public/javascripts/effects.js	/^Element.collectTextNodesIgnoreClass = function(element, className) {$/;"	f
+Element.findChildren	public/javascripts/dragdrop.js	/^Element.findChildren = function(element, only, recursive, tagName) {$/;"	f
+Element.forceRerendering	public/javascripts/effects.js	/^Element.forceRerendering = function(element) {$/;"	f
+Element.getInlineOpacity	public/javascripts/effects.js	/^Element.getInlineOpacity = function(element){$/;"	f
+Element.getStyles	public/javascripts/effects.js	/^  Element.getStyles = function(element) {$/;"	f
+Element.isParent	public/javascripts/dragdrop.js	/^Element.isParent = function(child, element) {$/;"	f
+Element.offsetSize	public/javascripts/dragdrop.js	/^Element.offsetSize = function (element, type) {$/;"	f
+Element.setContentZoom	public/javascripts/effects.js	/^Element.setContentZoom = function(element, percent) {$/;"	f
+Field.scrollFreeActivate	public/javascripts/controls.js	/^Field.scrollFreeActivate = function(field) {$/;"	f
+Prototype.Browser	public/javascripts/prototype.js	/^  Browser: (function(){$/;"	p
+Prototype.Version	public/javascripts/prototype.js	/^  Version: '1.7_rc2',$/;"	p
+SampleApp	config/application.rb	/^module SampleApp$/;"	m
+Sortable.SERIALIZE_RULE	public/javascripts/dragdrop.js	/^  SERIALIZE_RULE: \/^[^_\\-](?:[A-Za-z0-9\\-\\_]*)[_](.*)$\/,$/;"	p
+SortableObserver	public/javascripts/dragdrop.js	/^var SortableObserver = Class.create({$/;"	v
+Str	public/javascripts/prototype.js	/^  function Str(key, holder, stack) {$/;"	f
+String	public/javascripts/effects.js	/^String.prototype.parseColor = function() {$/;"	c
+String.parseColor	public/javascripts/effects.js	/^String.prototype.parseColor = function() {$/;"	m
+String.parseStyle	public/javascripts/effects.js	/^String.prototype.parseStyle = function(){$/;"	m
+Try.these	public/javascripts/prototype.js	/^  these: function() {$/;"	m
+Type	public/javascripts/prototype.js	/^  function Type(o) {$/;"	f
+about	public/index.html	/^      function about() {$/;"	f
+child.id	public/javascripts/dragdrop.js	/^        id: encodeURIComponent(match ? match[1] : null),$/;"	p
+clone	public/javascripts/prototype.js	/^  function clone(object) {$/;"	f
+drop	public/javascripts/dragdrop.js	/^    var drop, affected = [];$/;"	v
+droponOptions	public/javascripts/dragdrop.js	/^    var droponOptions = Sortable.options(dropon);$/;"	v
+extend	public/javascripts/prototype.js	/^  function extend(destination, source) {$/;"	f
+function.handleMethod	public/javascripts/rails.js	/^  function handleMethod(element) {$/;"	f
+function.handleRemote	public/javascripts/rails.js	/^  function handleRemote(element) {$/;"	f
+inspect	public/javascripts/prototype.js	/^  function inspect(object) {$/;"	f
+isArray	public/javascripts/prototype.js	/^  function isArray(object) {$/;"	f
+isElement	public/javascripts/prototype.js	/^  function isElement(object) {$/;"	f
+isForm.isInput.Event.Handler	public/javascripts/rails.js	/^    Event.Handler.prototype.initialize = Event.Handler.prototype.initialize.wrap($/;"	c
+isForm.isInput.isForm.isInput.Event.Handler.initialize	public/javascripts/rails.js	/^    Event.Handler.prototype.initialize = Event.Handler.prototype.initialize.wrap($/;"	m
+isFunction	public/javascripts/prototype.js	/^  function isFunction(object) {$/;"	f
+isHash	public/javascripts/prototype.js	/^  function isHash(object) {$/;"	f
+isNumber	public/javascripts/prototype.js	/^  function isNumber(object) {$/;"	f
+isString	public/javascripts/prototype.js	/^  function isString(object) {$/;"	f
+isUndefined	public/javascripts/prototype.js	/^  function isUndefined(object) {$/;"	f
+keys	public/javascripts/prototype.js	/^  function keys(object) {$/;"	f
+masterDelay	public/javascripts/effects.js	/^    var masterDelay = options.delay;$/;"	v
+name	public/javascripts/dragdrop.js	/^    var name = encodeURIComponent($/;"	v
+offsets	public/javascripts/dragdrop.js	/^    var offsets = dropon.cumulativeOffset();$/;"	v
+options_for_draggable.quiet	public/javascripts/dragdrop.js	/^      quiet:       options.quiet,$/;"	p
+options_for_draggable.revert	public/javascripts/dragdrop.js	/^      revert:      true,$/;"	p
+options_for_droppable.overlap	public/javascripts/dragdrop.js	/^      overlap:     options.overlap,$/;"	p
+options_for_tree.onHover	public/javascripts/dragdrop.js	/^      onHover:      Sortable.onEmptyHover,$/;"	p
+partial	public/javascripts/prototype.js	/^        var partial = [];$/;"	v
+pointer	public/javascripts/dragdrop.js	/^    var pointer = [Event.pointerX(event), Event.pointerY(event)];$/;"	v
+root.children	public/javascripts/dragdrop.js	/^      children: [],$/;"	p
+root.id	public/javascripts/dragdrop.js	/^      id: null,$/;"	p
+root.parent	public/javascripts/dragdrop.js	/^      parent: null,$/;"	p
+s	public/javascripts/dragdrop.js	/^    var s = Sortable.sortables[element.id];$/;"	v
+stringify	public/javascripts/prototype.js	/^  function stringify(object) {$/;"	f
+toHTML	public/javascripts/prototype.js	/^  function toHTML(object) {$/;"	f
+toJSON	public/javascripts/prototype.js	/^  function toJSON(value) {$/;"	f
+toQueryString	public/javascripts/prototype.js	/^  function toQueryString(object) {$/;"	f
+values	public/javascripts/prototype.js	/^  function values(object) {$/;"	f
+var.Effect._elementDoesNotExistError	public/javascripts/effects.js	/^  _elementDoesNotExistError: {$/;"	p
