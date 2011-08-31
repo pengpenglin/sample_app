@@ -1,5 +1,11 @@
 module ApplicationHelper
 
+  # Return a web site logo here
+  def logo
+    logo = image_tag("logo.png", :alt => "Sample App", :class => "round")
+  end
+
+
   # Return a title per-page basis
   def title
     base_title = "Ruby on Rails Tutorial Sample App"
