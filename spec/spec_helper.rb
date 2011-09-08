@@ -16,13 +16,11 @@ Spork.prefork do
 #   feel free to delete them.
 #
 
-
-
-
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -50,4 +48,10 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.  
+  # Reload all model files when run each spec
+  # otherwise there might be out-of-date testing
+  require 'rspec/rails'
+  Dir["#{Rails.root}/app/models/**/*.rb"].each do |model|
+    load model
+  end
 end

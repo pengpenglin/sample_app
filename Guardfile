@@ -16,13 +16,12 @@ end
 guard 'rspec', :cli => "--color --format nested --fail-fast --drb" do
 
   # Rails example
-  watch(%r{^spec/.+_spec\.rb$})
-  watch(%r{^spec/support/(.+)\.rb$})                  { "spec/" }
-  watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
-  watch(%r{^app/controllers/(.+)_(controller)\.rb$})  {"spec/controllers/"}
-  watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/requests" }
-  watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')                        { "spec/" }
   watch('app/controllers/application_controller.rb')  { "spec/controllers" }
-
+  watch(%r{^spec/.+_spec\.rb$})
+  watch(%r{^spec/support/(.+)\.rb$})                  { "spec/" }
+  watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { "spec/controllers/" } 
+  watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/requests" }
+  watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
+  watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }
 end

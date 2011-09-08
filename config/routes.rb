@@ -1,5 +1,14 @@
 SampleApp::Application.routes.draw do
-  get "users/new"
+
+  # We use RESTFul URL pattern to organize
+  # controller(action) ---> model ---> view
+  # such get "users/new" will be mapped to 
+  # RESTFul pattern that require the server
+  # to render a page for new user creation,
+  # so this single line will be comment out
+  # since we now use resources route
+  # get "users/new"
+  resources :users
 
   get "pages/home"
   get "pages/contact"
@@ -60,7 +69,7 @@ SampleApp::Application.routes.draw do
   #     resources :products
   #   end
 
-  # You can have the root of your site routed with "root"
+  # You can  the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
 
