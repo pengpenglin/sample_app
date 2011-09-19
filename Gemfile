@@ -13,15 +13,18 @@ group :development do
   gem 'guard-rspec'
   gem 'rspec-rails'
   gem 'annotate'
+  gem 'gravatar_image_tag'
 end  
 
 group :test do
   gem 'spork'
   gem 'guard-spork'
   gem 'rspec'
+  gem 'factory_girl_rails'
   gem 'webrat','0.7.1'
   gem 'libnotify'
   gem 'rb-inotify'
+  gem 'gravatar_image_tag'
 end
 
 # Use unicorn as the web server
