@@ -51,6 +51,9 @@ Spork.each_run do
   # Reload all model files when run each spec
   # otherwise there might be out-of-date testing
   require 'rspec/rails'
+  Dir["#{Rails.root}/app/controllers/**/*.rb"].each do |controller|
+    load controller
+  end
   Dir["#{Rails.root}/app/models/**/*.rb"].each do |model|
     load model
   end
