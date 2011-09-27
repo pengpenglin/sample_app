@@ -17,6 +17,8 @@ class UsersController < ApplicationController
       redirect_to @user # redirect_to user_path(@user) also works
     else
       @title = "Sign up"
+      @user.password = nil
+      @user.password_confirmation = nil
       # Here we redirect the page to 'new', which didn't hit the
       # new action in UsersController. So Rails won't create a new
       # model. In new.html.erb, we saw form_for access the user
