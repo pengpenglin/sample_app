@@ -24,9 +24,9 @@ describe "LayoutLinks" do
     response.should have_selector('title', :content => "Help")
   end
 
-  it "should have a sign up page at /signup" do
-    get '/signup'
-    response.should have_selector('title', :content => "Sign up")
+  it "should have a sign up page at /signin" do
+    get '/signin'
+    response.should have_selector('title', :content => "Sign in")
   end
 
   it "should have the right link on the layout" do
@@ -69,6 +69,33 @@ describe "LayoutLinks" do
     click_link "Sign up now!"    # This test should fail
     response.should have_selector("title", :content => "Sign up")
 
+  end
+
+  describe "When not sign in" do
+    it "Should have a sign in link" do
+      visit root_path
+      response.should have_selector("a", :href => signin_path, :content => "Sign in")
+    end
+  end
+
+  describe "When sign in" do
+   before(:each) do
+     @user = Factory(:user)
+     visit signin_path
+     fill_in :email,    :with => @user.email
+     fill_in :password, :with => @user.password
+     click_button
+   end
+
+    it "Should have a sign out link" do
+      visit root_path
+      response.should have_selector("a", :href => signout_path, :content => "Sign out")
+    end
+
+    it "should have a user profile link" do
+      visit root_path
+      response.should have_selector("a", :href => user_path(@user), :content => "Profile")
+    end
   end
   
 end

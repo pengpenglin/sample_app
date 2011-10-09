@@ -56,7 +56,6 @@ describe UsersController do
       assigns(:user).should == @user
     end
 
-
     it "should have the right title" do
       get :show, :id => @user
       response.should have_selector("title", :content => @user.name)
@@ -142,6 +141,11 @@ describe UsersController do
         # Here we use the regular expresssion to identify the
         # output contains the string we expected
         flash[:success].should =~ /welcome to the sample app/i
+      end
+
+      it "should sign the user in" do
+        post :create, :user => @attr
+        controller.should be_signed_in
       end
 
     end

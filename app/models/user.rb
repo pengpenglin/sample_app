@@ -49,11 +49,16 @@ class User < ActiveRecord::Base
     user && user.has_password?(submitted_password) ? user : nil
   end
 
+  def self.authenticate_with_salt(id, salt)
+    user = User.find_by_id(id)
+    (user && user.salt == salt)? user : nil
+  end
+
   # Return true if the user's password matches the submitted password.
   def has_password?(submitted_password)
     # Compare the encrypted_password with the encrypted version of
     # submitted password
-    self.encrypted_password == encrypt(submitted_password)
+    encrypted_password == encrypt(submitted_password)
   end
 
 # ----------------------Private method--------------------------------

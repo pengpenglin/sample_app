@@ -10,6 +10,11 @@ SampleApp::Application.routes.draw do
   # get "users/new"
   resources :users
 
+  # Here we make Rails generate the three routes for 
+  # new, create, destroy action. We don't need to create
+  # index, show such action and hence no routes needed
+  resources :sessions, :only => [:new, :create, :destroy]
+
   get "pages/home"
   get "pages/contact"
   get "pages/about"
@@ -21,6 +26,8 @@ SampleApp::Application.routes.draw do
   match '/about',  :to => 'pages#about'
   match '/help',   :to => 'pages#help'
   match '/signup', :to => 'users#new'
+  match '/signin', :to => 'sessions#new'
+  match '/signout',:to => 'sessions#destroy'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
