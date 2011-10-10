@@ -15,7 +15,7 @@ describe "Users" do
     ###################################################
     describe "failure" do
       it "should not create user" do
-        lambda do
+        lambda do          
           visit signup_path
           fill_in "Name",      :with => ""
           fill_in "Email",     :with => ""
@@ -46,24 +46,18 @@ describe "Users" do
   end
 
   describe "Sign in/out" do
-
     describe "Failure" do
       it "Should not sign user in" do
-        visit signin_path
-        fill_in :email,    :with => ""
-        fill_in :password, :with => ""
-        click_button
+        user = User.new({:email => "", :password => ""})
+        integration_sign_in(user)
         response.should have_selector("div.flash.error", :content => "Invalid")
-      end
+      end    
     end
 
-    describe "Success" do
+    describe "Success" do      
       it "Should sign the user in and out" do
         user = Factory(:user)
-        visit signin_path
-        fill_in :email,    :with => user.email
-        fill_in :password, :with => user.password
-        click_button
+        integration_sign_in(user)
         controller.should be_signed_in
         click_link "Sign out"
         controller.should_not be_signed_in
