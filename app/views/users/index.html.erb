@@ -1,0 +1,14 @@
+<h1>All users</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+  <!--Here we use render @users statement,
+      Rails will automatically iterate all
+      records in @users and render _user.html
+      .erb file
+  -->
+  <%= render @users %>
+</ul>
+
+<%= will_paginate %>

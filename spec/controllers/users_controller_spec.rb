@@ -4,6 +4,67 @@ describe UsersController do
 
   render_views
 
+  #---------------------Test for 'index' action----------------------------
+  describe "GET 'index'" do
+
+   describe "For non-sign-in user" do
+     it "Should deny access" do
+       get :index
+       response.should redirect_to(signin_path)
+       flash[:notice].should =~ /sign in/i
+     end
+   end
+
+   describe "For sign in user" do
+    
+     before(:each) do
+       # test_sign_in --> sign_in --> self.current_user = user
+       @user = test_sign_in(Factory(:user))
+       second = Factory(:user, :email => "second@163.com")
+       third  = Factory(:user, :email => "third@163.com")
+       @users = [@user, second, third]
+
+       30.times do
+         @users << Factory(:user, :email => Factory.next(:email))
+       end
+     end
+
+     it "Should be success" do
+       get :index
+       response.should be_success
+     end
+
+     it "Should have the right title" do
+       get :index
+       response.should have_selector("title", :content => "All users")
+     end
+
+     it "Should list all users" do
+       get :index
+       @users.each do |user|
+         response.should have_selector("li", :content => user.name)
+       end
+     end
+
+     it "Should list element for each user" do
+       get :index
+       @users[0..2].each do |user|
+         response.should have_selector("li", :content => user.name)
+       end
+     end
+
+     it "Should paginate users" do
+       get :index
+       response.should have_selector("div.pagination")
+       response.should have_selector("span.disabled", :content => "Previous")
+       response.should have_selector("a", :href => "/users?page=2", :content => "2")
+       response.should have_selector("a", :href => "/users?page=2", :content => "Next")
+     end
+
+   end
+
+  end
+
   #---------------------Test for 'new' action ------------------------------
 
   describe "GET 'new'" do
@@ -151,5 +212,165 @@ describe UsersController do
     end
 
   end
+
+  #----------------------Test for 'edit' action----------------------
+
+  describe "GET 'edit'" do
+    
+    before(:each) do
+      @user = Factory(:user)
+      test_sign_in(@user)
+    end
+
+    it "Should be success" do
+      get :edit, :id => @user
+      response.should be_success
+    end
+
+    it "Should have the right title" do
+      get :edit, :id => @user
+      response.should have_selector("title", :content => "Edit user")
+    end
+
+    it "Should change the Gravatar" do
+      get :edit, :id => @user
+      gravatar_url = "http://gravatar.com/emails"
+      response.should have_selector("a", :href => gravatar_url, :content => "Change")
+    end
+  end
   
+  #------------------Test for 'update' action---------------------
+  describe do
+
+    before(:each) do
+      @user = Factory(:user)
+      test_sign_in(@user)
+    end
+
+    describe "Failure" do
+      before(:each) do
+        @attr = {:name => "", :email => "",
+                 :passowrd => "", :password_confirmation => ""}
+      end
+
+      it "Should render the 'edit' page" do
+        put :update, :id => @user, :user =>@attr
+        response.should render_template('edit')
+      end
+
+      it "Should have the right title" do
+        put :update, :id => @user, :user => @attr
+        response.should have_selector("title", :content => "Edit user")
+      end
+    end
+
+    describe "Success" do
+      before(:each) do
+        @attr = {:name => "Pengpenglin", :email => "paullin81@gmail.com",
+                 :password => "123456", :password_confirmation => "123456"}
+      end
+
+      it "Should change the user's attributes" do
+        put :update, :id => @user, :user => @attr
+        @user.reload
+        @user.name.should == @attr[:name]
+        @user.email.should == @attr[:email]
+      end
+
+      it "Should redirect to user show page" do
+        put :update, :id => @user, :user => @attr
+        response.should redirect_to(user_path(@user))
+      end
+
+      it "Should have the flash message" do
+        put :update, :id => @user, :user => @attr
+        flash[:success] =~ /updated/
+      end
+
+    end
+
+  end
+
+  #----------------------Test for secuirty signin function--------------------
+  describe "Authentication of 'edit' & 'update' page" do
+    
+    before(:each) do
+      @user = Factory(:user)
+    end
+
+    describe "For non-signin users" do
+      it "Should deny access of 'edit' page" do
+        get :edit, :id => @user
+        response.should redirect_to(signin_path)
+      end
+
+      it "Should deny access of 'update' page" do
+        put :update, :id => @user, :user => {}
+        response.should redirect_to(signin_path)
+      end
+    end
+
+    describe "For signed in users" do
+    
+      before(:each) do
+        wrong_user = Factory(:user, :email => "wrongmail@163.com")
+        test_sign_in(wrong_user)
+      end
+      
+      it "Should require user to match 'edit'" do
+        get :edit, :id => @user
+        response.should redirect_to(root_path)
+      end
+
+      it "Should require user to match 'update'" do
+        put :update, :id => @user, :user => {}
+        response.should redirect_to(root_path)
+      end
+    end
+  end
+  
+  #----------------------Test for delete function--------------------
+  describe "Delete 'destroy'" do
+
+    before(:each) do
+      @user = Factory(:user)
+    end
+
+    describe "As non-sign-in user"do
+      it "Should deny access " do
+        delete :destroy, :id => @user
+        response.should redirect_to(signin_path)
+      end
+    end
+
+    describe "As non-administrator user" do
+      it "should protect the page" do
+        test_sign_in(@user)
+        delete :destroy, :id => @user
+        response.should redirect_to(root_path)
+      end
+    end
+
+    describe "As administrator user" do
+
+      before(:each) do
+        admin = Factory(:user, :email => "pengpenglin@163.com", :admin => true)
+        test_sign_in(admin)
+      end
+
+      it "Should destroy the user" do
+        lambda do
+          delete :destroy, :id => @user
+        end.should change(User, :count).by(-1)
+      end
+
+      it "Should redirect to users page" do
+        delete :destroy, :id => @user
+        response.should redirect_to(users_path)
+      end
+      
+    end
+
+  end
+
 end

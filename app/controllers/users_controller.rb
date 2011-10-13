@@ -1,5 +1,17 @@
 class UsersController < ApplicationController
-  
+
+  # For all signed-in required page, we should apply authenticate filter
+  # For edit and update user profile, we should apply for user self only (even admin)
+  # For delete user, we should only apply for admin user
+  before_filter :authenticate, :only => [:index, :edit, :update, :destroy]
+  before_filter :correct_user, :only => [:edit, :update]
+  before_filter :admin_user,   :only => [:destroy]
+
+  def index
+    @users = User.paginate(:page => params[:page])
+    @title = "All users"
+  end
+
   def show
     @user = User.find(params[:id])
     @title = @user.name
@@ -32,5 +44,43 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
+
+  def edit
+    #@user = User.find(params[:id]) # No need anymore since correct_user method
+    @title = "Edit user"
+  end
+
+  def update
+    #@user = User.find(params[:id]) # No need anymore since correct_user method
+    if @user.update_attributes(params[:user])
+      flash[:success] = "Profile updated"
+      redirect_to @user
+    else
+      @title = "Edit user"
+      render 'edit'
+    end    
+  end
+
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User destroyed"
+    redirect_to users_path
+  end
+
+  #----------------------Private method-------------------------
+  private
+
+    def authenticate
+      deny_access unless signed_in?
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to root_path unless current_user?(@user)
+    end
+    
+    def admin_user
+      redirect_to root_path unless current_user.admin?
+    end    
 
 end

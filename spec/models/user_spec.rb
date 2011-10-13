@@ -139,4 +139,24 @@ describe User do
     end
   end
 
+  describe "Admin attribute" do
+
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+
+    it "Should respond to admin" do
+      @user.should respond_to("admin")
+    end
+
+    it "Should not be a admin user by default" do
+      @user.should_not be_admin
+    end
+
+    it "Should be convertible to admin user" do
+      @user.toggle("admin")
+      @user.should be_admin
+    end
+  end
+
 end

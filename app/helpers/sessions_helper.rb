@@ -1,5 +1,22 @@
 module SessionsHelper
-  
+
+  def deny_access
+    # Before redirect o sign in page, we can
+    # store the request URL to somewhere in
+    # case user come back
+    store_location
+    redirect_to signin_path, :notice => "Please sign in to access this page"
+  end  
+
+  def redirect_back_or(default)
+    # If we know the previous requested page, then
+    # redirect to accordinlly, otherwise follow
+    # the default URL
+    redirect_to (session[:return_to] || default)
+    clear_return_to
+  end
+
+
   # This method persists user information into browser
   # for 20 years(cookies.permanent) and use secure token
   # (cookies.signed) with name "remember_token"
@@ -34,6 +51,10 @@ module SessionsHelper
 
   def current_user
     @current_user ||= user_from_remember_token
+  end  
+
+  def current_user?(user)
+    @current_user == user
   end
   
   private
@@ -44,6 +65,14 @@ module SessionsHelper
 
     def remember_token
       cookies.signed[:remember_token]||[nil,nil]
+    end
+
+    def store_location
+      session[:return_to] = request.fullpath
+    end
+    
+    def clear_return_to
+      session[:return_to] = nil
     end
 
 end 

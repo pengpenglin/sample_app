@@ -9,6 +9,7 @@ guard 'spork', :cli => "--drb" do
   watch('config/routes.rb')
   watch(%r{^config/initializers/.+\.rb$})
   watch(%r{^config/environments/.+\.rb$})
+  watch(%r{^app/helpers/.+\.rb$})
 end
 
 # Guard will reload and run the Rspec test suit once
@@ -21,6 +22,7 @@ guard 'rspec', :cli => "--color --format nested --fail-fast --drb" do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^spec/support/(.+)\.rb$})                  { "spec/" }
   watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { "spec/controllers/" } 
+  watch(%r{^app/helpers/(.+)_(helper)\.rb$})          { "spec/"}
   watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/requests" }
   watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }
