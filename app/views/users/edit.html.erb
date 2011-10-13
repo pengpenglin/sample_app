@@ -1,43 +1,13 @@
 <h1>Edit user</h1>
 
 <%= form_for(@user) do |f| %>
-  <%= render 'shared/error_messages', :object => f.object %>
-
-  <!-- Pls note that Rails will automatically
-       wrapped a div called "field_with_errors"
-       to inentify a invalid form field.
-
-       Though Rails add this div for us, we still
-       need to fill the content of corresponding
-       CSS type
-  -->
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "confirmation" %><br />
-    <%= f.password_field :password_confirmation %><br />
-  </div>
-
+  <%= render 'fields', :f => f %>
   <div class="actions">
     <%= f.submit "Update" %>
   </div>
-
 <% end %>
 
 <div>
-  <%= gravatar_for @user%>
-  <a href="http://gravatar.com/emails">Change</a>
+  <%= gravatar_for @user %>
+  <a href="http://gravatar.com/emails" target="_blank">Change</a>
 </div>

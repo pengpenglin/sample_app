@@ -62,8 +62,23 @@ describe "Users" do
         click_link "Sign out"
         controller.should_not be_signed_in
       end
-    end
 
+      it "Should redirect to root path if user try to sign up again" do
+        user = Factory(:user)
+        integration_sign_in(user)
+        # Note that since we have removed the "sign up" link in home
+        # page for signin user, so we couldn't use get :new or click_link
+        # "Sign up" to act as signup request.
+        # 
+        # In fact we use  "visit signup_path" to issue a request to /signup
+        visit signup_path
+        # Pay attention that in integration test, Rspec will automatically
+        # redirect to destination URL required by controller, so we should
+        # not use neither controller.should redirect_to(root_path) nor
+        # response.should redirect_to(root_path)
+        response.should have_selector("title", :content => "Home")
+      end
+    end
   end
 
 end

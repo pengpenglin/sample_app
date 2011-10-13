@@ -46,6 +46,27 @@ describe UsersController do
        end
      end
 
+     it "Should not have delete link for normal user" do
+       get :index
+       @users.each do |user|
+         response.should_not have_selector("a", :herf => user_path(user), :content => "Delete")
+       end
+     end
+
+     it "Should have delete link for admin user" do
+       admin_user = Factory(:user,:email => Factory.next(:email),:admin => true)
+       test_sign_in(admin_user)
+       get :index
+       response.should have_selector("a", :href => "/users/2", :content => "Delete")       
+     end
+
+     it "Should not display delete link for user itself" do
+       admin_user = Factory(:user, :email => Factory.next(:email), :admin => true)
+       test_sign_in(admin_user)
+       get :index
+       response.should_not have_selector("a", :href => user_path(admin_user), :content => "Delete")
+     end
+
      it "Should list element for each user" do
        get :index
        @users[0..2].each do |user|
@@ -352,16 +373,21 @@ describe UsersController do
     end
 
     describe "As administrator user" do
-
       before(:each) do
-        admin = Factory(:user, :email => "pengpenglin@163.com", :admin => true)
-        test_sign_in(admin)
+        @admin = Factory(:user, :email => Factory.next(:email), :admin => true)
+        test_sign_in(@admin)
       end
 
       it "Should destroy the user" do
         lambda do
           delete :destroy, :id => @user
         end.should change(User, :count).by(-1)
+      end
+
+      it "Should not destroy admin user self" do
+        lambda do
+          delete :destroy, :id => @admin          
+        end.should_not change(User, :count)
       end
 
       it "Should redirect to users page" do

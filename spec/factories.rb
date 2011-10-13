@@ -1,12 +1,12 @@
 # By using symbol :user, we get factory girl to simulate user model
 
 Factory.sequence :email do |n|
-  "paullin81-#{n}@gmail.com"
+  "pengpenglin-#{n}@163.com"
 end
 
 Factory.define :user do |user|
-  user.name                    "paullin"
-  user.email                   "paullin81@gmail.com"
+  user.name                    "Paul"
+  user.email                   "pengpenglin@163.com"
   user.password                "foobar"
   user.password_confirmation   "foobar"
 end
