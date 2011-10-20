@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
   # or method
   attr_accessor :password
   attr_accessible :name, :email, :password, :password_confirmation
+
+  # Note that here we use microposts instead of micropost
+  # to indicate that one-to-many association
+  has_many :microposts, :dependent => :destroy
  
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -59,6 +63,11 @@ class User < ActiveRecord::Base
     # Compare the encrypted_password with the encrypted version of
     # submitted password
     encrypted_password == encrypt(submitted_password)
+  end
+
+  # Return the microposts posted by current user
+  def feed
+    Micropost.where("user_id = ?", id)
   end
 
 # ----------------------Private method--------------------------------

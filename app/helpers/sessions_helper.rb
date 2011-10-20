@@ -1,5 +1,9 @@
 module SessionsHelper
 
+  def authenticate
+    deny_access unless signed_in?
+  end
+
   def deny_access
     # Before redirect o sign in page, we can
     # store the request URL to somewhere in

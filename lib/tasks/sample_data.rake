@@ -19,5 +19,11 @@ namespace :db do
                     :password => "password",
                     :password_confirmation => "password")
     end
+    # Step 6: Create 50 microposts per uer by limit to top six users
+    User.all(:limit => 6).each do |user|
+      50.times do
+        user.microposts.create!(:content => Faker::Lorem.sentence(5))
+      end
+    end
   end
 end

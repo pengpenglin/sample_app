@@ -1,5 +1,9 @@
 SampleApp::Application.routes.draw do
 
+  get "microposts/create"
+
+  get "microposts/destroy"
+
   # We use RESTFul URL pattern to organize
   # controller(action) ---> model ---> view
   # such get "users/new" will be mapped to 
@@ -13,7 +17,8 @@ SampleApp::Application.routes.draw do
   # Here we make Rails generate the three routes for 
   # new, create, destroy action. We don't need to create
   # index, show such action and hence no routes needed
-  resources :sessions, :only => [:new, :create, :destroy]
+  resources :sessions,  :only => [:new, :create, :destroy]
+  resources :microposts,:only => [:create, :destroy]
 
   get "pages/home"
   get "pages/contact"

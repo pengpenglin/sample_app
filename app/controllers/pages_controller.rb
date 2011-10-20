@@ -1,6 +1,13 @@
 class PagesController < ApplicationController
+
   def home
+    # If user signed in then initialize a new
+    # instance variable for micropost form
     @title = "Home"
+    if signed_in?
+      @micropost = Micropost.new
+      @feed_items = current_user.feed.paginate(:page => params[:page])
+    end
   end
 
   def contact
@@ -14,4 +21,5 @@ class PagesController < ApplicationController
   def help
     @title = "Help"
   end
+
 end
