@@ -148,6 +148,12 @@ div.field div.acions {
   color: #fff;
 }
 
+.notify {
+  color: red;
+  float: left;
+  margin-right: 100px;
+}
+
 #error_explanation {
   width: 400px;
   border: 2px solid red;
@@ -240,3 +246,4 @@ form.new_micropost textarea {
   height: 4em;
   margin-bottom:0;
 }
+

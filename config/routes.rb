@@ -12,7 +12,9 @@ SampleApp::Application.routes.draw do
   # so this single line will be comment out
   # since we now use resources route
   # get "users/new"
-  resources :users
+  resources :users do
+    resources :microposts
+  end
 
   # Here we make Rails generate the three routes for 
   # new, create, destroy action. We don't need to create

@@ -1,6 +1,13 @@
 class MicropostsController < ApplicationController
-  before_filter :authenticate, :only => [:create, :destroy]
-  before_filter :authorized_user, :only => [:destroy]
+  before_filter :authenticate, :only => [:index, :create, :destroy]
+  before_filter :authorized_user, :only => [:destroy]  
+
+  def index
+    @user = User.find_by_id(params[:user_id])
+    @micropost = @user.microposts.paginate(:page => params[:page])
+    @title = @user.name
+    redirect_to @user
+  end
 
   def create
     @micropost = current_user.microposts.build(params[:micropost])
@@ -11,7 +18,7 @@ class MicropostsController < ApplicationController
       @feed_items = []
       render 'pages/home'
     end
-  end
+  end    
 
   def destroy
     @micropost.destroy

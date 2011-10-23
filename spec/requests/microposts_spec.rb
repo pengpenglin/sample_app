@@ -10,7 +10,7 @@ describe "Microposts" do
     click_button
   end
 
-  describe "creation" do
+  describe "Creation" do
 
     describe "Failure" do
       it "Should not create a micropost" do
@@ -34,6 +34,60 @@ describe "Microposts" do
           response.should have_selector("span.content", :content => content)
         end.should change(Micropost, :count).by(1)
       end
+    end
+
+  end
+
+  describe "Pagination" do
+    describe "less than 30 microposts" do
+      it "Should not paginate microposts" do
+        visit root_path
+        response.should_not have_selector("div.pagination")
+      end
+    end
+
+    describe "More than 30 microposts" do
+      before(:each) do
+        50.times do |n|
+          Factory(:micropost, :user => @user)
+        end
+      end
+
+      it "should paginate microposts" do
+        visit root_path
+        response.should have_selector("div.pagination")
+        response.should have_selector("span.disabled", :content => "Previous")
+        response.should have_selector("a.next_page", :content => "Next")
+        click_link "Next"
+        response.should have_selector("div.pagination")
+        response.should have_selector("span.disabled", :content => "Next")
+        response.should have_selector("a.previous_page", :content => "Previous")
+      end
+    end
+  end
+
+  describe "Side bar" do
+
+    it "Should not have any existing micropost"do
+      visit root_path
+      response.should have_selector("span.microposts", :content => "0")
+    end
+
+    it "Should have 1 micropost" do
+      visit root_path
+      fill_in :micropost_content, :with => "the first micropost"
+      click_button
+      response.should have_selector("span.microposts", :content => "1 micropost")
+    end
+
+    it "Should have 2 microposts" do
+      visit root_path
+      fill_in :micropost_content, :with => "the first micropost"
+      click_button
+      fill_in :micropost_content, :with => "the second micropost"
+      click_button
+      response.should have_selector("span.microposts", :content => "2 microposts")
+        
     end
 
   end

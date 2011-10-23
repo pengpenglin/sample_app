@@ -1,7 +1,11 @@
 <%= form_for @micropost do |f|%>
   <%= render 'shared/error_messages', :object => f.object %>
   <div class="field">
-    <%= f.text_area :content%> 
+    <%= f.text_area :content, {:onpropertychange => "checkLength(this, 140)",
+                               :oninput => "checkLength(this,140)"} %> 
+  </div>
+  <div>
+    <span id="micropost_length" class="notify"></span>
   </div>
   <div class="action">
     <%= f.submit "Submit"%>
