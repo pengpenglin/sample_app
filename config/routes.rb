@@ -1,5 +1,9 @@
 SampleApp::Application.routes.draw do
 
+  get "relationships/create"
+
+  get "relationships/destroy"
+
   get "microposts/create"
 
   get "microposts/destroy"
@@ -13,14 +17,18 @@ SampleApp::Application.routes.draw do
   # since we now use resources route
   # get "users/new"
   resources :users do
+    member do
+      get :following, :followers
+    end
     resources :microposts
   end
 
   # Here we make Rails generate the three routes for 
   # new, create, destroy action. We don't need to create
   # index, show such action and hence no routes needed
-  resources :sessions,  :only => [:new, :create, :destroy]
-  resources :microposts,:only => [:create, :destroy]
+  resources :sessions,      :only => [:new, :create, :destroy]
+  resources :microposts,    :only => [:create, :destroy]
+  resources :relationships, :only => [:create, :destroy]
 
   get "pages/home"
   get "pages/contact"

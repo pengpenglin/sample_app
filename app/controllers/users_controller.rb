@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   # For all signed-in required page, we should apply authenticate filter
   # For edit and update user profile, we should apply for user self only (even admin)
   # For delete user, we should only apply for admin user
-  before_filter :authenticate,   :only => [:index, :edit, :update, :destroy]
+  before_filter :authenticate, :except => [:show, :new, :create]
   before_filter :correct_user,   :only => [:edit, :update]
   before_filter :admin_user,     :only => [:destroy]
   before_filter :signed_in_user, :only => [:new, :create]
@@ -72,6 +72,25 @@ class UsersController < ApplicationController
       flash[:success] = "User destroyed"
       redirect_to users_path
     end
+  end
+
+  def following
+    @title = "Following"
+    @user  = User.find(params[:id])
+    @users = @user.following.paginate(:page => params[:page])
+    # Note that 'show_follow' is not a partial, but a erb page
+    # that means no "_" prefix before "show"
+    #
+    # If we use render in view, that means it's a partial hence
+    # a "_" should insert before partial name
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user  = User.find(params[:id])
+    @users = @user.followers.paginate(:page => params[:page])
+    render 'show_follow'
   end
 
   #----------------------Private method-------------------------

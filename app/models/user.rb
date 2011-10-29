@@ -26,7 +26,48 @@ class User < ActiveRecord::Base
   # Note that here we use microposts instead of micropost
   # to indicate that one-to-many association
   has_many :microposts, :dependent => :destroy
- 
+
+  # An user can have many relationship, one of them is "following".
+  # The :foreign_key option means that: Rails can use the follower_id
+  # as the foreign key to find user. Since in following relationship,
+  # user is the "follower" to another user, so the follower_id equals
+  # to current user id.
+  #
+  # The SQL issued by Rails will be like:
+  #
+  #  SELECT relationships.followed_id
+  #         from user a,relationship b
+  #        where a.id = b.follower_id
+  #          and a.id = ?
+  has_many :relationships, :foreign_key => 'follower_id', :dependent => :destroy
+
+
+  # The reverse relationship is "follower". User is being followed by
+  # others. Rails will issue a SQL like this:
+  #
+  #  Select relationships.follower_id
+  #    from user a, relationship b
+  #   where a.id = b.followed_id
+  #     and a.id = ?
+  #
+  # Since reverse relationship still keep in table relationships, we
+  # just need to use :class_name to tell Rails explicitly
+       
+
+  has_many :reverse_relationships, :foreign_key => "followed_id",
+           :class_name => "Relationship", 
+           :dependent => :destroy 
+
+  # Through 'relationships' we can say that: user has many following,
+  # note that here we SHOULD NOT defind the cascade for dependent.
+  # If an user was destroyed, the relationship should be destroyed 
+  # instead of his following or followers
+  has_many :following, :through => :relationships, :source => :followed
+
+  # As the same with following relationship, user can also find many
+  # followers through reverse_relationship 
+  has_many :followers, :through => :reverse_relationships, :source => :follower
+
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   # Validations for name and email attributes
@@ -67,7 +108,23 @@ class User < ActiveRecord::Base
 
   # Return the microposts posted by current user
   def feed
-    Micropost.where("user_id = ?", id)
+    # Micropost.where("user_id = ?", id)
+    Micropost.from_users_followed_by(self)
+  end
+
+  # Find whether the given user is followed by current user
+  def following?(followed)
+    relationships.find_by_followed_id(followed)
+  end
+
+  # Follow an user
+  def follow!(followed)
+    relationships.create!(:followed_id => followed.id)
+  end
+
+  # Unfollow user
+  def unfollow!(followed)
+    relationships.find_by_followed_id(followed.id).destroy
   end
 
 # ----------------------Private method--------------------------------

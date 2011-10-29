@@ -198,6 +198,67 @@ describe User do
         @user.feed.include?(mp3).should be_false 
       end
 
+      it "Should include the microposts followed by user " do
+        followed = Factory(:user, :email => Factory.next(:email))
+        mp3 = Factory(:micropost, :user => followed)
+        @user.follow!(followed)
+        @user.feed.should include(mp3)
+      end
+
+    end
+
+  end
+
+  describe "Relationship" do
+
+    before(:each) do
+      @user = User.create!(@attr)
+      @followed = Factory(:user)
+    end
+
+    it "Should have a relationships method" do
+      @user.should respond_to(:relationships)
+    end
+
+    it "Should have a following? method" do
+      @user.should respond_to(:following?)
+    end
+
+    it "Should have a follow! method" do
+      @user.should respond_to(:follow!)
+    end
+
+    it "Should follow a user" do
+      @user.follow!(@followed)
+      @user.should be_following(@followed)
+    end
+
+    it "Should include the followed user in relationship" do
+      @user.follow!(@followed)
+      @user.following.should include(@followed)
+    end
+
+    it "Should have an unfollow! method" do
+      @user.should respond_to(:unfollow!)
+    end
+
+    it "Should unfollow user" do
+      @user.follow!(@followed)
+      @user.unfollow!(@followed)
+      @user.should_not be_following(@followed)
+    end
+
+    it "Should have a reverse_relationships method" do
+      @user.should respond_to(:reverse_relationships)
+    end
+
+    it "Should have a followers method" do
+      @user.should respond_to(:followers)
+    end
+
+    it "Should include the follower in followers array" do
+      @user.follow!(@followed)
+      @followed.followers.should include(@user)
     end
 
   end
